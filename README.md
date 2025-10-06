@@ -1,4 +1,4 @@
-# Instalacion de Apache Hadoop en Lunix (Ubuntu)
+# Instalacion de Apache Hadoop en Lunix
 
 Apache Hadoop es un marco de trabajo (framework) de código abierto diseñado para el almacenamiento distribuido y el procesamiento de grandes volúmenes de datos (Big Data) en clústeres de computadoras. Está construido para escalar desde un solo servidor hasta miles de máquinas, cada una con almacenamiento y capacidad de cómputo local.
 
@@ -53,19 +53,19 @@ Qwen3-Max 1:56 pm
 
 Instalar y configurar Apache Hadoop 3.x en modo pseudo-distribuido en una máquina con Ubuntu 24.04. 
 
-## Pre-Requisitos
+## 📋 Requisitos
 
 - Sistema operativo: Ubuntu 24.04 LTS (recién instalado o actualizado).
 - Java JDK 8 o 11: Hadoop 3.x es compatible con Java 8 y 11 (recomendado Java 11)..
 - Un usuario con permisos sudo o root.
 
-## Paso 1: Actualizar el sistema
+## 🧰 Paso 1: Actualizar el sistema
 
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-## Paso 2: Instalar Java (OpenJDK 11)
+## ☕  Paso 2: Instalar Java (OpenJDK 11)
 
 Hadoop 3.x funciona bien con OpenJDK 11:
 
@@ -89,7 +89,7 @@ Verifica la instalación:
 ```bash
 echo $JAVA_HOME
 ```
-## Paso 3: Crear un usuario dedicado a Hadoop (opcional pero recomendado)
+## 👤 Paso 3: Crear un usuario dedicado a Hadoop (opcional pero recomendado)
 
 ```bash
 sudo adduser hadoop
@@ -102,7 +102,7 @@ Cambia al usuario:
 su - hadoop
 ```
 
-## Paso 4: Configurar SSH sin contraseña (localhost)
+## 🔐 Paso 4: Configurar SSH sin contraseña (localhost)
 Hadoop necesita SSH para comunicarse con los nodos (aunque sea local). 
 
 Instala SSH si no está: 
@@ -121,4 +121,160 @@ Prueba el acceso sin contraseña:
 
 ```bash
 ssh localhost
+```
+## 📦 Paso 5: Descargar e instalar Apache Hadoop
+Ve al directorio de descargas o a tu home:
+```bash
+cd ~
+```
+
+Descarga la última versión estable de Hadoop (ejemplo con 3.3.6; verifica en https://hadoop.apache.org/releases.html ):
+
+```bash
+wget https://dlcdn.apache.org/hadoop/common/hadoop-3.4.2/hadoop-3.4.2.tar.gz
+```
+Descomprime:
+```bash
+tar -xvzf hadoop-3.4.2.tar.gz
+mv hadoop-3.4.2 hadoop
+```
+## 🌐 Paso 6: Configurar variables de entorno de Hadoop
+
+Edita ~/.bashrc:
+```bash
+sudo nano ~/.bashrc
+```
+
+Agrega al final:
+
+```bash
+# Hadoop
+export HADOOP_HOME=/home/hadoop/hadoop
+export HADOOP_INSTALL=$HADOOP_HOME
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export YARN_HOME=$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native"
+```
+Guarda y recarga:
+
+```bash
+source ~/.bashrc
+```
+Verifica:
+```bash
+echo $HADOOP_HOME
+hadoop version
+```
+## ⚙️ Paso 7: Configurar archivos de Hadoop
+
+Los archivos de configuración están en $HADOOP_HOME/etc/hadoop/.
+
+### 7.1 Editar hadoop-env.sh
+```bash
+sudo nano $HADOOP_HOME/etc/hadoop/hadoop-env.sh
+```
+Busca la línea con export JAVA_HOME y cámbiala a:
+```bash
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+```
+
+### 7.2 Editar core-site.xml
+
+```bash
+nano $HADOOP_HOME/etc/hadoop/core-site.xml
+```
+
+Dentro de las etiquetas <configuration>...</configuration>, agrega:
+
+```bash
+<property>
+    <name>fs.defaultFS</name>
+    <value>hdfs://localhost:9000</value>
+</property>
+```
+### 7.3 Editar hdfs-site.xml
+```bash
+sudo nano $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+```
+
+Agrega:
+
+```bash
+<property>
+    <name>dfs.replication</name>
+    <value>1</value>
+</property>
+<property>
+    <name>dfs.namenode.name.dir</name>
+    <value>file:///home/hadoop/hadoop_data/hdfs/namenode</value>
+</property>
+<property>
+    <name>dfs.datanode.data.dir</name>
+    <value>file:///home/hadoop/hadoop_data/hdfs/datanode</value>
+</property>
+```
+
+Crea los directorios:
+
+```bash
+mkdir -p ~/hadoop_data/hdfs/namenode
+mkdir -p ~/hadoop_data/hdfs/datanode
+```
+### 7.4 Editar mapred-site.xml
+```bash
+sudo nano $HADOOP_HOME/etc/hadoop/mapred-site.xml
+```
+
+Agrega:
+```bash
+<property>
+    <name>mapreduce.framework.name</name>
+    <value>yarn</value>
+</property>
+```
+
+### 7.5 Editar yarn-site.xml
+```bash
+nano $HADOOP_HOME/etc/hadoop/yarn-site.xml
+```
+Agrega:
+
+```bash
+<property>
+    <name>yarn.nodemanager.aux-services</name>
+    <value>mapreduce_shuffle</value>
+</property>
+<property>
+    <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+    <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+</property>
+```
+## 🔄 Paso 8: Formatear el NameNode
+Antes de iniciar HDFS por primera vez:
+```bash
+hdfs namenode -format
+```
+## ▶️ Paso 9: Iniciar servicios de Hadoop
+
+```bash
+start-dfs.sh
+start-yarn.sh
+```
+
+Verifica los procesos:
+```bash
+jps
+```
+Deberías ver algo como:
+```bash
+NameNode
+DataNode
+SecondaryNameNode
+ResourceManager
+NodeManager
+Jps
 ```
