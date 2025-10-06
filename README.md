@@ -1,8 +1,49 @@
 # Instalacion de Apache Hadoop en Lunix (Ubuntu)
 
-Apache Spark es un motor de análisis unificado para el procesamiento de datos a gran escala. Gracias a su alta velocidad de procesamiento en memoria, la plataforma es popular en entornos de computación distribuida.
+Apache Hadoop es un marco de trabajo (framework) de código abierto diseñado para el almacenamiento distribuido y el procesamiento de grandes volúmenes de datos (Big Data) en clústeres de computadoras. Está construido para escalar desde un solo servidor hasta miles de máquinas, cada una con almacenamiento y capacidad de cómputo local.
 
-Spark admite diversas fuentes y formatos de datos y puede ejecutarse en clústeres independientes o integrarse con Hadoop , Kubernetes y servicios en la nube . Al ser un framework de código abierto , admite diversos lenguajes de programación como Java , Scala, Python y R.
+## Componentes Principales 
+### 1. HDFS (Hadoop Distributed File System) 
+
+#### Propósito: Sistema de archivos distribuido.
+Características:
+- Tolerante a fallos y altamente disponible.
+- Almacena datos en bloques (típicamente de 128 MB en Hadoop 2+).
+- Replica los datos (por defecto, 3 copias) en diferentes nodos para evitar pérdidas.
+
+### 2. MapReduce 
+
+#### Propósito: Modelo de programación para procesamiento distribuido.
+Fases:
+- Map: Procesa los datos de entrada y genera pares clave-valor.
+- Reduce: Combina los resultados del map para producir la salida final.
+
+Ideal para: Procesamiento por lotes (batch processing), no para tiempo real.
+
+### 3. YARN (Yet Another Resource Negotiator) 
+
+#### Propósito: Gestiona recursos y programa tareas en el clúster.
+Componentes:
+- ResourceManager: Coordinador central de recursos.
+- NodeManager: Gestiona recursos en cada nodo.
+- ApplicationMaster: Supervisa la ejecución de cada aplicación.
+
+### 4. Hadoop Common 
+
+Bibliotecas y utilidades compartidas por todos los módulos.
+
+## Ecosistema de Hadoop 
+
+Además de sus componentes centrales, Hadoop cuenta con un rico ecosistema: 
+
+- Hive: Permite consultar datos con un lenguaje similar a SQL.
+- Pig: Lenguaje de alto nivel para flujos de datos.
+- HBase: Base de datos NoSQL para acceso en tiempo real.
+- Spark: Motor de procesamiento rápido en memoria (más veloz que MapReduce).
+- ZooKeeper: Servicio de coordinación distribuida.
+- Sqoop: Transfiere datos entre Hadoop y bases de datos relacionales.
+- Flume: Recoge y agrega logs o flujos de datos.
+- Oozie: Programador de flujos de trabajo.
 
 En este tutorial, aprenderá cómo instalar y configurar Hadoop en Ubuntu.
 
