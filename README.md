@@ -185,10 +185,10 @@ export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 ### 7.2 Editar core-site.xml
 
 ```bash
-nano $HADOOP_HOME/etc/hadoop/core-site.xml
+sudo nano $HADOOP_HOME/etc/hadoop/core-site.xml
 ```
 
-Dentro de las etiquetas <configuration>...</configuration>, agrega:
+Dentro de las etiquetas < configuration >...</ configuration >, agrega:
 
 ```bash
 <property>
@@ -239,7 +239,7 @@ Agrega:
 
 ### 7.5 Editar yarn-site.xml
 ```bash
-nano $HADOOP_HOME/etc/hadoop/yarn-site.xml
+sudo nano $HADOOP_HOME/etc/hadoop/yarn-site.xml
 ```
 Agrega:
 
@@ -278,3 +278,43 @@ ResourceManager
 NodeManager
 Jps
 ```
+
+## 🌍 Paso 10: Acceder a las interfaces web
+
+- HDFS Web UI: http://localhost:9870 
+- YARN Web UI: http://localhost:8088 
+
+## 🧪 Paso 11: Ejecutar un ejemplo de MapReduce
+
+Crea un directorio en HDFS:
+
+```bash
+hdfs dfs -mkdir /user
+hdfs dfs -mkdir /user/hadoop
+```
+Copia un archivo de ejemplo (puedes crear uno):
+
+```bash
+echo "Hola mundo Hadoop" > input.txt
+hdfs dfs -put input.txt /user/hadoop/
+```
+Ejecuta el ejemplo de WordCount:
+
+```bash
+hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.4.2.jar wordcount /user/hadoop/input.txt /user/hadoop/output
+```
+Ver resultados:
+
+```bash
+hdfs dfs -cat /user/hadoop/output/part-r-00000
+```
+
+## 🛑 Paso 12: Detener servicios (cuando termines)
+
+```bash
+stop-yarn.sh
+stop-dfs.sh
+```
+
+# Autor
+Derecho Reservados ® Jaime Llanos Bardales
