@@ -46,9 +46,79 @@ Además de sus componentes centrales, Hadoop cuenta con un rico ecosistema:
 - Oozie: Programador de flujos de trabajo.
 
 En este tutorial, aprenderá cómo instalar y configurar Hadoop en Ubuntu.
+profile
+Qwen3-Max 1:56 pm
+
+# Instalación de Apache Hadoop en Ubuntu 24.04
+
+Instalar y configurar Apache Hadoop 3.x en modo pseudo-distribuido en una máquina con Ubuntu 24.04. 
 
 ## Pre-Requisitos
 
-- Un sistema Ubuntu.
-- Acceso a una terminal o línea de comandos.
+- Sistema operativo: Ubuntu 24.04 LTS (recién instalado o actualizado).
+- Java JDK 8 o 11: Hadoop 3.x es compatible con Java 8 y 11 (recomendado Java 11)..
 - Un usuario con permisos sudo o root.
+
+## Paso 1: Actualizar el sistema
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+## Paso 2: Instalar Java (OpenJDK 11)
+
+Hadoop 3.x funciona bien con OpenJDK 11:
+
+```bash
+sudo apt install openjdk-11-jdk -y
+```
+Verifica la instalación:
+
+```bash
+java -version
+```
+Configura la variable de entorno JAVA_HOME:
+
+```bash
+echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.bashrc
+echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc
+source ~/.bashrc
+```
+Verifica la instalación:
+
+```bash
+echo $JAVA_HOME
+```
+## Paso 3: Crear un usuario dedicado a Hadoop (opcional pero recomendado)
+
+```bash
+sudo adduser hadoop
+sudo usermod -aG sudo hadoop
+```
+
+Cambia al usuario:
+
+```bash
+su - hadoop
+```
+
+## Paso 4: Configurar SSH sin contraseña (localhost)
+Hadoop necesita SSH para comunicarse con los nodos (aunque sea local). 
+
+Instala SSH si no está: 
+```bash
+sudo apt install openssh-server openssh-client -y
+```
+
+Genera una clave SSH sin contraseña:
+
+```bash
+ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+chmod 0600 ~/.ssh/authorized_keys
+```
+Prueba el acceso sin contraseña:
+
+```bash
+ssh localhost
+```
