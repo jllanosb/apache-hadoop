@@ -49,7 +49,97 @@ En este tutorial, aprenderá cómo instalar y configurar Hadoop en Ubuntu.
 profile
 Qwen3-Max 1:56 pm
 
-# Instalación de Apache Hadoop en Ubuntu 24.04
+# Paso A. Instalación de Apache Hadoop WSL2 (Ubuntu 24.04)
+
+##  Instalar y activar WSL2 en Windows
+
+Verificar que Windows sea versión 2004 o superior. Se puede revisar con el comando winver.
+
+Abrir PowerShell como administrador y habilitar WSL con:
+
+```bash
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+```
+Habilitar la plataforma de máquina virtual con:
+
+```bash
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+```
+
+Reiniciar el equipo.
+
+## Verificar WSL2
+Establecer WSL2 como versión predeterminada:
+
+```bash
+wsl --set-default-version 2
+```
+
+Para listar las instancias o distribuciones de WSL (Windows Subsystem for Linux) instaladas en Windows, se utiliza el comando en la terminal o PowerShell:
+
+```bash
+wsl --list --verbose
+```
+o su versión corta:
+```bash
+wsl --list --verbose
+```
+
+Este comando muestra todas las distribuciones Linux instaladas, el estado de cada una (si está corriendo o detenida) y la versión de WSL que usan (WSL 1 o WSL 2). También se puede usar simplemente wsl --list para ver las distribuciones sin detalles adicionales.
+
+Además, si se quiere solo listar las distribuciones que están corriendo, se emplea:
+
+```bash
+wsl --list --running
+```
+## Instalar ubuntu WSL2
+
+### Método 1: Instalar desde la terminal con WSL
+
+Abrir PowerShell como administrador.
+
+Listar las distribuciones disponibles con:
+
+```bash
+wsl --list --online
+```
+
+Instalar Ubuntu 24.04 con:
+
+```bash
+wsl --install -d Ubuntu-24.04
+```
+
+Esperar a que finalice la instalación y luego abrir la distribución para completar la configuración inicial.
+
+### Método 2: Instalar desde Microsoft Store
+
+Abrir Microsoft Store en Windows.
+
+Buscar "Ubuntu" y elegir "Ubuntu 24.04 LTS".
+
+Hacer clic en "Obtener" o "Instalar".
+
+Una vez instalada, abrir la aplicación para terminar la configuración.
+
+### Método 3: Descargar el archivo .wsl y usar instalación manual
+
+Descargar la imagen oficial de Ubuntu 24.04 en formato .wsl desde la página oficial de Ubuntu para WSL.
+
+Instalar haciendo doble clic en el archivo o usando el comando:
+
+```bash
+wsl --install --from-file <ruta_del_archivo.wsl>
+```
+Completar la configuración inicial después de la instalación.
+
+### Abrir una ventana de PowerShell o CMD y ejecutar el comando:
+
+```bash
+wsl -d Ubuntu-24.04
+```
+
+# Paso B. Instalación de Apache Hadoop en Ubuntu 24.04
 
 Instalar y configurar Apache Hadoop 3.x en modo pseudo-distribuido en una máquina con Ubuntu 24.04. 
 
