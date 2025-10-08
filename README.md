@@ -446,9 +446,6 @@ Verificar que el directorio de salida no exista, sino lo elimina:
 ```bash
 hdfs dfs -rm -r /user/hadoop/output
 ```
-
-hdfs dfs -rm -r /user/hadoop/output
-
 Ejecuta el ejemplo de WordCount:
 
 ```bash
@@ -476,13 +473,16 @@ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.4.2.j
 
 #### Después de ejecutar el comando, deberías ver en la terminal algo como:
 ```rmarkdown
+...
 2025-10-08 09:23:29,769 INFO mapreduce.Job: Running job: job_1759930577015_0002
 2025-10-08 09:23:38,116 INFO mapreduce.Job: Job job_1759930577015_0002 running in uber mode : false
 2025-10-08 09:23:38,121 INFO mapreduce.Job:  map 0% reduce 0%
 2025-10-08 09:23:44,253 INFO mapreduce.Job:  map 100% reduce 0%
 2025-10-08 09:23:50,323 INFO mapreduce.Job:  map 100% reduce 100%
-*2025-10-08 09:23:51,339 INFO mapreduce.Job: Job job_1759930577015_0002 completed successfully*
+-->
+2025-10-08 09:23:51,339 INFO mapreduce.Job: Job job_1759930577015_0002 completed successfully
 2025-10-08 09:23:51,482 INFO mapreduce.Job: Counters: 54
+...
 ```
 
 ### 4. Muestra el resultado
