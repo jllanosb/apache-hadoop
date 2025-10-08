@@ -259,6 +259,9 @@ export YARN_HOME=$HADOOP_HOME
 export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
 export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native"
+# Agregar esto
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export PATH=$PATH:$JAVA_HOME/bin
 ```
 Guarda y recarga:
 
@@ -295,6 +298,7 @@ Dentro de las etiquetas < configuration >...</ configuration >, agrega:
 <property>
     <name>fs.defaultFS</name>
     <value>hdfs://localhost:9000</value>
+    <!--value>hdfs://<IP_PUBLICA>:9000</value-->
 </property>
 ```
 ### 7.3 Editar hdfs-site.xml
@@ -317,6 +321,12 @@ Agrega:
     <name>dfs.datanode.data.dir</name>
     <value>file:///home/hadoop/hadoop_data/hdfs/datanode</value>
 </property>
+
+<!-- Habilitar esta linea cuando ejecutes en un servidor con IP Pública-->
+<!--property>
+    <name>dfs.namenode.http-bind-host</name>
+    <value>0.0.0.0</value>
+</property-->
 ```
 
 Crea los directorios:
@@ -337,7 +347,7 @@ Agrega:
     <value>yarn</value>
 </property>
 
-<!-- ¡ESTO ES LO QUE TE FALTA! -->
+<!-- AGREGAR ESTAS LINEAS PARA CORREGIR ERRORES EN MAPREDUCE -->
 <property>
     <name>yarn.app.mapreduce.am.env</name>
     <value>HADOOP_MAPRED_HOME=/home/hadoop/hadoop</value>
@@ -376,6 +386,17 @@ Agrega:
     <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
     <value>org.apache.hadoop.mapred.ShuffleHandler</value>
 </property>
+
+<!-- Habilitar estas lineas cuando trabajen con IP_PUBLICA-->
+<!--property>
+    <name>yarn.resourcemanager.webapp.address</name>
+    <value>0.0.0.0:8088</value>
+</property>
+<property>
+    <name>yarn.nodemanager.webapp.address</name>
+    <value>0.0.0.0:8042</value>
+</property-->
+
 ```
 ## 🔄 Paso 8: Formatear el NameNode
 Antes de iniciar HDFS por primera vez:
