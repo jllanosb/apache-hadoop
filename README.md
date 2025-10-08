@@ -396,6 +396,16 @@ Agrega:
     <value>0.0.0.0:8042</value>
 </property-->
 
+<!-- Opcional: si usas solo un nodo -->
+<property>
+    <name>yarn.nodemanager.bind-host</name>
+    <value>0.0.0.0</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.bind-host</name>
+    <value>0.0.0.0</value>
+</property>
+
 ```
 ## 🔄 Paso 8: Formatear el NameNode
 Antes de iniciar HDFS por primera vez:
