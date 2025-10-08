@@ -325,6 +325,29 @@ Agrega:
     <name>mapreduce.framework.name</name>
     <value>yarn</value>
 </property>
+
+<!-- ¡ESTO ES LO QUE TE FALTA! -->
+<property>
+    <name>yarn.app.mapreduce.am.env</name>
+    <value>HADOOP_MAPRED_HOME=/home/hadoop/hadoop</value>
+</property>
+
+<property>
+    <name>mapreduce.map.env</name>
+    <value>HADOOP_MAPRED_HOME=/home/hadoop/hadoop</value>
+</property>
+
+<property>
+    <name>mapreduce.reduce.env</name>
+    <value>HADOOP_MAPRED_HOME=/home/hadoop/hadoop</value>
+</property>
+
+```
+##### Nota: Si la ruta no funciona */home/hadoop/hadoop* cambia por */opt/hadoop*, según tu instalación.
+
+Para saber la ruta puedes obtenerla con:
+```bash
+echo $HADOOP_HOME
 ```
 
 ### 7.5 Editar yarn-site.xml
