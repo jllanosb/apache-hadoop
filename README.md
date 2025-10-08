@@ -489,8 +489,7 @@ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.4.2.j
 2025-10-08 09:23:38,121 INFO mapreduce.Job:  map 0% reduce 0%
 2025-10-08 09:23:44,253 INFO mapreduce.Job:  map 100% reduce 0%
 2025-10-08 09:23:50,323 INFO mapreduce.Job:  map 100% reduce 100%
--->
-2025-10-08 09:23:51,339 INFO mapreduce.Job: Job job_1759930577015_0002 completed successfully
+--> 2025-10-08 09:23:51,339 INFO mapreduce.Job: Job job_1759930577015_0002 *_completed successfully_*
 2025-10-08 09:23:51,482 INFO mapreduce.Job: Counters: 54
 ...
 ```
@@ -503,14 +502,14 @@ hdfs dfs -cat /user/hadoop/output/part-r-00000
 
 Si tu input.txt contiene:
 ```rmarkdown
-_Hola mundo Hadoop Hola_
+Hola mundo Hadoop Hola
 ```
 
 Entonces el resultado será:
 ```rmarkdown
-_Hadoop	1_
-_Hola	2_
-_mundo	1_
+Hadoop	1
+Hola	2
+mundo	1
 ```
 
 ## 🛑 Paso 13: Detener servicios (cuando termines)
