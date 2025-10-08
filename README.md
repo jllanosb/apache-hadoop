@@ -49,7 +49,7 @@ En este tutorial, aprenderá cómo instalar y configurar Hadoop en Ubuntu.
 profile
 Qwen3-Max 1:56 pm
 
-# Paso A. Instalación de Apache Hadoop WSL2 (Ubuntu 24.04)
+# Paso A. Instalación de WSL2 para desplegar Ubuntu 24.04
 
 ##  Instalar y activar WSL2 en Windows
 
@@ -73,6 +73,11 @@ Establecer WSL2 como versión predeterminada:
 
 ```bash
 wsl --set-default-version 2
+```
+
+### Nota: Si pide actualizar *descarga WSL2* y ejecuta el instalador de actualización manualmente
+```bash
+https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
 ```
 
 Para listar las instancias o distribuciones de WSL (Windows Subsystem for Linux) instaladas en Windows, se utiliza el comando en la terminal o PowerShell:
@@ -133,7 +138,13 @@ wsl --install --from-file <ruta_del_archivo.wsl>
 ```
 Completar la configuración inicial después de la instalación.
 
-### Abrir una ventana de PowerShell o CMD y ejecutar el comando:
+## Eliminar instancia de ubuntu creada con WSL2
+```bash
+wsl --unregister Ubuntu-24.04
+```
+
+# Iniciar instancia Ubuntu en WSL2
+ Abrir una ventana de PowerShell o CMD o Terminal y ejecutar el comando:
 
 ```bash
 wsl -d Ubuntu-24.04
