@@ -46,8 +46,6 @@ Además de sus componentes centrales, Hadoop cuenta con un rico ecosistema:
 - Oozie: Programador de flujos de trabajo.
 
 En este tutorial, aprenderá cómo instalar y configurar Hadoop en Ubuntu.
-profile
-Qwen3-Max 1:56 pm
 
 # Paso A. Instalación de WSL2 para desplegar Ubuntu 24.04
 
@@ -298,6 +296,7 @@ Dentro de las etiquetas < configuration >...</ configuration >, agrega:
 <property>
     <name>fs.defaultFS</name>
     <value>hdfs://localhost:9000</value>
+    <!-- Habilitar estas lineas cuando se trabaje con IP_PUBLICA-->
     <!--value>hdfs://<IP_PUBLICA>:9000</value-->
 </property>
 ```
@@ -443,6 +442,13 @@ Copia un archivo de ejemplo (puedes crear uno):
 echo "Hola mundo Hadoop" > input.txt
 hdfs dfs -put input.txt /user/hadoop/
 ```
+Verificar que el directorio de salida no exista, sino lo elimina:
+```bash
+hdfs dfs -rm -r /user/hadoop/output
+```
+
+hdfs dfs -rm -r /user/hadoop/output
+
 Ejecuta el ejemplo de WordCount:
 
 ```bash
@@ -453,8 +459,48 @@ Ver resultados:
 ```bash
 hdfs dfs -cat /user/hadoop/output/part-r-00000
 ```
+## 🛑 Paso 12: Resumen del flujo completo
 
-## 🛑 Paso 12: Detener servicios (cuando termines)
+### 1. Verifica tu archivo de entrada
+```bash
+hdfs dfs -cat /user/hadoop/input.txt
+```
+### 2. Elimina salida anterior (si existe)
+```bash
+hdfs dfs -rm -r /user/hadoop/output
+```
+### 3. Ejecuta WordCount
+```bash
+hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.4.2.jar wordcount /user/hadoop/input.txt /user/hadoop/output
+```
+
+#### Después de ejecutar el comando, deberías ver en la terminal algo como:
+...
+2025-10-08 09:23:29,769 INFO mapreduce.Job: Running job: job_1759930577015_0002
+2025-10-08 09:23:38,116 INFO mapreduce.Job: Job job_1759930577015_0002 running in uber mode : false
+2025-10-08 09:23:38,121 INFO mapreduce.Job:  map 0% reduce 0%
+2025-10-08 09:23:44,253 INFO mapreduce.Job:  map 100% reduce 0%
+2025-10-08 09:23:50,323 INFO mapreduce.Job:  map 100% reduce 100%
+*2025-10-08 09:23:51,339 INFO mapreduce.Job: Job job_1759930577015_0002 completed successfully*
+2025-10-08 09:23:51,482 INFO mapreduce.Job: Counters: 54
+...
+
+### 4. Muestra el resultado
+```bash
+hdfs dfs -cat /user/hadoop/output/part-r-00000
+```
+### 5. 🎯 Ejemplo de salida esperada
+
+Si tu input.txt contiene:
+_Hola mundo Hadoop Hola_
+
+Entonces el resultado será:
+
+_Hadoop	1_
+_Hola	2_
+_mundo	1_
+
+## 🛑 Paso 13: Detener servicios (cuando termines)
 
 ```bash
 stop-yarn.sh
@@ -462,4 +508,4 @@ stop-dfs.sh
 ```
 
 # Autor
-Derecho Reservados ® Jaime Llanos Bardales
+ ® Jaime Llanos Bardales
