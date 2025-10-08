@@ -475,7 +475,7 @@ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.4.2.j
 ```
 
 #### Después de ejecutar el comando, deberías ver en la terminal algo como:
-...
+```rmarkdown
 2025-10-08 09:23:29,769 INFO mapreduce.Job: Running job: job_1759930577015_0002
 2025-10-08 09:23:38,116 INFO mapreduce.Job: Job job_1759930577015_0002 running in uber mode : false
 2025-10-08 09:23:38,121 INFO mapreduce.Job:  map 0% reduce 0%
@@ -483,7 +483,7 @@ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.4.2.j
 2025-10-08 09:23:50,323 INFO mapreduce.Job:  map 100% reduce 100%
 *2025-10-08 09:23:51,339 INFO mapreduce.Job: Job job_1759930577015_0002 completed successfully*
 2025-10-08 09:23:51,482 INFO mapreduce.Job: Counters: 54
-...
+```
 
 ### 4. Muestra el resultado
 ```bash
@@ -492,17 +492,20 @@ hdfs dfs -cat /user/hadoop/output/part-r-00000
 ### 5. 🎯 Ejemplo de salida esperada
 
 Si tu input.txt contiene:
+```rmarkdown
 _Hola mundo Hadoop Hola_
+```
 
 Entonces el resultado será:
-
+```rmarkdown
 _Hadoop	1_
 _Hola	2_
 _mundo	1_
+```
 
 ## 🛑 Paso 13: Detener servicios (cuando termines)
 
-```bash
+```rmarkdown
 stop-yarn.sh
 stop-dfs.sh
 ```
