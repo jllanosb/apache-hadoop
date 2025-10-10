@@ -85,7 +85,7 @@ wsl --list --verbose
 ```
 o su versión corta:
 ```bash
-wsl --list --verbose
+wsl -l -v
 ```
 
 Este comando muestra todas las distribuciones Linux instaladas, el estado de cada una (si está corriendo o detenida) y la versión de WSL que usan (WSL 1 o WSL 2). También se puede usar simplemente wsl --list para ver las distribuciones sin detalles adicionales.
@@ -146,6 +146,13 @@ wsl --unregister Ubuntu-24.04
 
 ```bash
 wsl -d Ubuntu-24.04
+```
+
+# Apagar instancia Ubuntu en WSL2
+ Abrir una ventana de PowerShell o CMD o Terminal y ejecutar el comando:
+
+```bash
+wsl --terminate Ubuntu-24.04
 ```
 
 # Paso B. Instalación de Apache Hadoop en Ubuntu 24.04
