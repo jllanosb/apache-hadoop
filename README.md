@@ -216,6 +216,17 @@ ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 chmod 0600 ~/.ssh/authorized_keys
 ```
+
+Iniciar servicio de SSH:
+```bash
+sudo systemctl start ssh
+sudo systemctl enable ssh # optional: habilitar ssh
+```
+
+Verificar el funcionamiento de SSH:
+```bash
+sudo service ssh start
+```
 Prueba el acceso sin contraseña:
 
 ```bash
@@ -305,7 +316,7 @@ Dentro de las etiquetas < configuration >...</ configuration >, agrega:
 sudo nano $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 ```
 
-Agrega:
+Agrega Dentro de las etiquetas < configuration >...</ configuration >:
 
 ```bash
 <property>
@@ -339,7 +350,7 @@ mkdir -p ~/hadoop_data/hdfs/datanode
 sudo nano $HADOOP_HOME/etc/hadoop/mapred-site.xml
 ```
 
-Agrega:
+Agrega Dentro de las etiquetas < configuration >...</ configuration >:
 ```bash
 <property>
     <name>mapreduce.framework.name</name>
@@ -374,7 +385,7 @@ echo $HADOOP_HOME
 ```bash
 sudo nano $HADOOP_HOME/etc/hadoop/yarn-site.xml
 ```
-Agrega:
+Agrega Dentro de las etiquetas < configuration >...</ configuration >:
 
 ```bash
 <property>
@@ -489,7 +500,7 @@ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.4.2.j
 2025-10-08 09:23:38,121 INFO mapreduce.Job:  map 0% reduce 0%
 2025-10-08 09:23:44,253 INFO mapreduce.Job:  map 100% reduce 0%
 2025-10-08 09:23:50,323 INFO mapreduce.Job:  map 100% reduce 100%
---> 2025-10-08 09:23:51,339 INFO mapreduce.Job: Job job_1759930577015_0002 *_completed successfully_*
+--> 2025-10-08 09:23:51,339 INFO mapreduce.Job: Job job_1759930577015_0002 completed successfully
 2025-10-08 09:23:51,482 INFO mapreduce.Job: Counters: 54
 ...
 ```
@@ -518,6 +529,20 @@ mundo	1
 stop-yarn.sh
 stop-dfs.sh
 ```
+
+## Paso 14: Accediendo con SSH
+
+#### Conectarse a Hadoop con ssh localhost
+```rmarkdown
+ssh hadoop@locahost
+```
+Ingresa tu contraseña y continua tu trabajo
+
+#### Conectarse a Hadoop con ssh < IP_PUBLICA >
+```rmarkdown
+ssh hadoop@<IP_PUBLICA>
+```
+Ingresa tu contraseña y continua tu trabajo
 
 # Autor
  ® Jaime Llanos Bardales
