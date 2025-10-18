@@ -434,6 +434,9 @@ hdfs namenode -format
 
 ```bash
 start-dfs.sh
+```
+
+```bash
 start-yarn.sh
 ```
 
@@ -467,7 +470,7 @@ hdfs dfs -mkdir /user/hadoop
 Copia un archivo de ejemplo (puedes crear uno):
 
 ```bash
-echo "Hola mundo Hadoop" > input.txt
+echo "Probando Funcionamiento de Apache Hadoop v.3.4.2 en Ubuntu 24.04" > input.txt
 hdfs dfs -put input.txt /user/hadoop/
 ```
 Verificar que el directorio de salida no exista, sino lo elimina:
@@ -525,9 +528,15 @@ Hola mundo Hadoop Hola
 
 Entonces el resultado será:
 ```rmarkdown
-Hadoop	1
-Hola	2
-mundo	1
+24.04           1
+Apache          1
+Funcionamiento  1
+Hadoop          1
+Probando        1
+Ubuntu          1
+de              1
+en              1
+v.3.4.2         1
 ```
 
 ## 🛑 Paso 13: Detener servicios (cuando termines)
@@ -550,6 +559,10 @@ Ingresa tu contraseña y continua tu trabajo
 ssh hadoop@<IP_PUBLICA>
 ```
 Ingresa tu contraseña y continua tu trabajo
+
+🔧 ¿Para qué se usa Hadoop?
+
+Hadoop se usa principalmente en el campo del Big Data, donde se necesita manejar y procesar petabytes (o incluso exabytes) de datos. Empresas como Facebook, Yahoo! y LinkedIn han utilizado Hadoop para sus sistemas de datos masivos.
 
 # Autor
  ® Jaime Llanos Bardales
