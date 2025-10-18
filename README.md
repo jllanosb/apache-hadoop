@@ -560,9 +560,9 @@ ssh hadoop@<IP_PUBLICA>
 ```
 Ingresa tu contraseña y continua tu trabajo
 
-🔧 ¿Para qué se usa Hadoop?
+### 🔧 ¿Para qué se usa Hadoop?
 
-Hadoop se usa principalmente en el campo del Big Data, donde se necesita manejar y procesar petabytes (o incluso exabytes) de datos. Empresas como Facebook, Yahoo! y LinkedIn han utilizado Hadoop para sus sistemas de datos masivos.
+Hadoop se usa principalmente en el campo del Big Data, donde se necesita manejar y procesar petabytes (o incluso exabytes) de datos. Empresas como Facebook, LinkedIn han utilizado Hadoop para sus sistemas de datos masivos.
 
 # Autor
  ® Jaime Llanos Bardales
